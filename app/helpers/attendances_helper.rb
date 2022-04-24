@@ -14,10 +14,10 @@ module AttendancesHelper
   end
   
   def format_hour(time)
-    format("%.d", ((time.hour)))
+    format("%.2d", ((time.hour)))
   end
   
   def format_min(time)
-    format("%.2d", (((time.min) .to_i / 15) * 15))
+    format("%.2d", (((time.min) / 15) * 15))
   end
 end
