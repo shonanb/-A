@@ -56,9 +56,24 @@
            |
             <%= link_to "削除", user, method: :delete,
                 data: { confirm: "削除してよろしいですか？" }, class: "btn btn-primary" %><br>
-          <div class="jumbotron">
-            <%= link_to "編集", edit_basic_info_user_path(user), class: "btn btn-primary btn-lg" %>
-          </div>
+          <!--<div class="jumbotron">-->
+          <!--  <%= link_to "編集", edit_basic_info_user_path(user), class: "btn btn-primary btn-lg" %>-->
+          <!--</div>-->
+          
+          <p>
+            <div class="jumbotron">
+              <button type="button" class="btn btn-primary btn-lg" data-toggle="collapse" 
+              data-target="#collapseExample<%= user.id %>" aria-expanded="false" aria-controls="collapseExample">
+               編集
+              </button>
+            </div>
+          </p>
+            <div class="collapse" id="collapseExample<%= user.id %>">
+              <div class="card card-body">
+                折り畳みコンポーネントのプレースホルダーコンテンツ。...
+              </div>
+            </div>
+
             
           <% end %>
         </td>
