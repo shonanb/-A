@@ -1,87 +1,45 @@
 <% provide(:title, 'All Users') %>
+<% provide(:class_text, 'All Users') %>
+<% provide(:button_text, '編集する') %>
 
 
-<% if params[:search].blank? %>
 <h1>ユーザー一覧</h1>
-<% else %>
-<h1>検索結果</h1>
-<% end %>
 
 <input type="file" name="s_file">
 <br>
 <%= link_to "CSVをインポート", "#", class: "btn btn-primary" %>
 
 
-
-<!--<div class="col-md-10 col-md-offset-7">-->
-<!--  <b>ユーザー名検索</b>-->
-<!--  <%= form_with url: users_path, method: :get, local: true do |f| %>-->
-<!--  <%= f.text_field :search,value: params[:search], placeholder: "キーワードを入力..." %>-->
-<!--  <%= f.submit '検索', name: nil, class: "btn btn-primary" %>-->
-<!--<% end %>-->
-<!--</div>     -->
-
 <div class="col-md-10 col-md-offset-1">
   <%= will_paginate %><br>
-  <!--<table class="table table-condensed table-hover" id="table-users">-->
-    <!--<thead>-->
-      <!--<tr>-->
-        <!--<th><%= User.human_attribute_name :name %></th>-->
-        <!--<th class="center"><%= User.human_attribute_name :department %></th>-->
-        <!--<% if current_user.admin? %>-->
-        <!--  <th class="center"><%= User.human_attribute_name :basic_time %></th>-->
-        <!--  <th class="center"><%= User.human_attribute_name :work_time %></th>-->
-        <!--<% end %>-->
-    <!--    <th></th>-->
-    <!--  </tr>-->
-    <!--</thead>-->
 
     <% @users.each do |user| %>
       <tr>
-        <!--<td>-->
-        <!--  <% if current_user.admin? %>-->
-        <!--    <%= link_to user.name, user %>-->
-        <!--  <% else %>-->
-        <!--    <%= user.name %>-->
-        <!--  <% end %>-->
-        <!--</td>-->
-        <!--<td class="center"><%= user.department.present? ? user.department : "未所属" %></td>-->
-        <!--<% if current_user.admin? %>-->
-        <!--  <td class="center"><%= format_basic_info(user.basic_time) %></td>-->
-        <!--  <td class="center"><%= format_basic_info(user.work_time) %></td>-->
-        <!--<% end %>-->
         <td class="left">
           <% if current_user.admin? && !current_user?(user) %>
            <%= user.name %><br>
            |
             <%= link_to "削除", user, method: :delete,
                 data: { confirm: "削除してよろしいですか？" }, class: "btn btn-primary" %><br>
-          <!--<div class="jumbotron">-->
-          <!--  <%= link_to "編集", edit_basic_info_user_path(user), class: "btn btn-primary btn-lg" %>-->
-          <!--</div>-->
-          
-          <p>
+
+            <p>
             <div class="jumbotron">
               <button type="button" class="btn btn-primary btn-lg" data-toggle="collapse" 
               data-target="#collapseExample<%= user.id %>" aria-expanded="false" aria-controls="collapseExample">
                編集
               </button>
             </div>
-          </p>
-            <div class="collapse" id="collapseExample<%= user.id %>">
-              <div class="card card-body">
-                折り畳みコンポーネントのプレースホルダーコンテンツ。...
-              </div>
+          　</p>
+          <div class="collapse" id="collapseExample<%= user.id %>">
+            <div class="card card-body">
+              <%= render 'form2', user: user %>
             </div>
+          </div>
 
             
           <% end %>
         </td>
       </tr>
     <% end %>
-  <!--</table>-->
   <%= will_paginate %>
 </div>
-
-<!--モーダルウインドウ表示-->
-<!--<div id="edit-basic-info" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>-->

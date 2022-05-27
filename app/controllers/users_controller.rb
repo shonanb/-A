@@ -4,10 +4,14 @@ class UsersController < ApplicationController
   before_action :admin_or_correct_user, only: [:show, :edit, :update]
   before_action :admin_user, only: [:destroy, :edit_basic_info, :update_basic_info]
   before_action :set_one_month, only: :show
+  
+  
 
   def index
     @users = User.paginate(page: params[:page])
-    @users = @users.where('name LIKE ?', "%#{params[:search]}%") if params[:search].present?
+    # @users = @users.where('name LIKE ?', "%#{params[:search]}%") if params[:search].present?
+   @user = User.new
+  
   end
 
   def show
@@ -35,7 +39,7 @@ class UsersController < ApplicationController
   def update
     if @user.update_attributes(user_params)
       flash[:success] = "ユーザー情報を更新しました。"
-      redirect_to @user
+      redirect_to index
     else
       render :edit      
     end
@@ -67,6 +71,9 @@ class UsersController < ApplicationController
     end
   end
   
+  def index_attendance
+  end
+  
 
   private
 
@@ -75,6 +82,6 @@ class UsersController < ApplicationController
     end
 
     def basic_info_params
-      params.require(:user).permit(:department, :basic_time, :work_time)
+      params.require(:user).permit(:department, :employee_number, :card, :designated_work_start_time, :designated_work_end_time, :basic_time, :work_time)
     end
 end
