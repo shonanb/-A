@@ -11,7 +11,18 @@ class UsersController < ApplicationController
     @users = User.paginate(page: params[:page])
     # @users = @users.where('name LIKE ?', "%#{params[:search]}%") if params[:search].present?
    @user = User.new
+  end
   
+  
+  def import
+    if params[:file].blank?
+      flash[:danger] = "ファイルを選択してください。"
+      redirect_to users_url
+    else
+    User.import(params[:file])
+    flash[:success] = "ファイルをインポートしました。"
+    redirect_to users_url
+    end
   end
 
   def show
@@ -78,7 +89,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :department,  :password, :password_confirmation, 
+      params.require(:user).permit(:name, :email, :department,  :password, :password_confirmation, :employee_number, :card,
                                    :basic_time, :designated_work_start_time, :designated_work_end_time,)
     end
 

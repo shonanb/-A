@@ -5,9 +5,10 @@
 
 <h1>ユーザー一覧</h1>
 
-<input type="file" name="s_file">
-<br>
-<%= link_to "CSVをインポート", "#", class: "btn btn-primary" %>
+<%= form_tag import_users_path, multipart: true do %>
+  <%= file_field_tag :file %><br>
+  <%= submit_tag "CSVをインポート" , class: "btn btn-primary"%>
+<% end %>
 
 
 <div class="col-md-10 col-md-offset-1">
@@ -21,8 +22,6 @@
            |
             <%= link_to "削除", user, method: :delete,
                 data: { confirm: "削除してよろしいですか？" }, class: "btn btn-primary" %><br>
-
-            <p>
             <div class="jumbotron">
               <button type="button" class="btn btn-primary btn-lg" data-toggle="collapse" 
               data-target="#collapseExample<%= user.id %>" aria-expanded="false" aria-controls="collapseExample">
