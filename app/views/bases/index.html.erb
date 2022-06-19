@@ -1,0 +1,40 @@
+<% provide(:title, 'base') %>
+<% provide(:button_text, '追加') %>
+
+<h1>拠点一覧</h1>
+
+<table class="table table-bordered table-hover attendance-table">
+  <tr>
+    <td></td>
+    <td></td>
+    <td>拠点番号</td>
+    <td>拠点名</td>
+    <td>勤怠種類</td>
+  </tr>
+  
+  <tbody>
+      <% @bases.each do |base| %>
+        <tr>
+          <td><%= link_to "修正", edit_basis_path(base) , class: "btn btn-primary" %></td>
+          <td> <%= link_to "削除", base, method: :delete,
+                data: { confirm: "削除してよろしいですか？" }, class: "btn btn-primary" %></td>
+          <td><%= base.base_number %></td>
+          <td><%= base.base_name %></td>
+          <td><%= base.base_type %></td>
+        </tr>
+      <% end %>
+    </tbody>
+</table>
+  
+    <div class="jumbotron">
+      <button type="button" class="btn btn-primary btn-lg" data-toggle="collapse" 
+      data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        拠点情報追加
+      </button>
+    </div>
+    </p>
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body">
+        <%= render 'form3' %>
+      </div>
+     </div>

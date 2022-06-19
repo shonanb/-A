@@ -86,6 +86,9 @@ class UsersController < ApplicationController
     @users = User.all.includes(:attendances)
   end
   
+  def base
+  end
+  
 
   private
 
